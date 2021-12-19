@@ -115,8 +115,12 @@
           <div class="user truncate">
             <div id="name" class="name truncate">{{ steward["name"] }}</div>
             <div class="gitcoinhandle truncate">
-              <a id="handle_gitcoin" target="_blank" href="#"
-                >{{ steward["handle_gitcoin"] }}</a
+              <a
+                id="handle_gitcoin"
+                target="_blank"
+                href='https://gitcoin.co/{{ steward["handle_gitcoin"] }}'
+              >
+                {{ steward["handle_gitcoin"] }}</a
               >
             </div>
           </div>
@@ -134,8 +138,12 @@
               <img src="../assets/images/calender.svg" />
             </div>
             <div class="property truncate">
-              <a id="steward_since_url" target="_blank" href="#"
-                >Steward since</a
+              <a
+                id="steward_since_url"
+                target="_blank"
+                href='https://gov.gitcoin.co/t/introducing-stewards-governance/41/{{ steward["statement_post_id"] }}'
+              >
+                Steward since</a
               >
             </div>
             <div class="value truncate">
@@ -149,7 +157,12 @@
               <img src="../assets/images/forum.svg" />
             </div>
             <div class="property truncate">
-              <a id="forum_uri" href="#" target="_blank">Forum posts</a>
+              <a
+                id="forum_uri"
+                href='https://gov.gitcoin.co/u/{{ steward["handle_gitcoin"] }}'
+                target="_blank"
+                >Forum posts</a
+              >
             </div>
             <div class="value truncate">
               <span id="forum_post">{{ steward["statement_post_id"] }}</span>
@@ -179,7 +192,10 @@
               <img src="../assets/images/weight.svg" />
             </div>
             <div class="property truncate">
-              <a id="votingweight_url" target="_blank" href="#"
+              <a
+                id="votingweight_url"
+                target="_blank"
+                href='https://www.withtally.com/voter/{{ steward["address"] }}/governance/gitcoin'
                 >Voting weight</a
               >
             </div>
@@ -210,14 +226,18 @@
 
         <!-- buttons-->
         <div class="buttons">
-          <a id="statement_button" class="btn truncate" target="_blank" href="#"
+          <a
+            id="statement_button"
+            class="btn truncate"
+            target="_blank"
+            href='https://gov.gitcoin.co/t/introducing-stewards-governance/41/{{ steward["statement_post_id"] }}'
             >Statement</a
           >
           <a
             id="delegate_button"
             class="btn truncate teal"
             target="_blank"
-            href="#"
+            href='https://www.withtally.com/voter/{{ steward["address"] }}/governance/gitcoin'
             >Delegate</a
           >
         </div>
