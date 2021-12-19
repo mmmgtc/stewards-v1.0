@@ -272,7 +272,7 @@ section#gitcoindao a {
 
 .ui {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 2fr 2fr;
   margin: 0em 2em;
   gap: 1em;
 }
@@ -290,18 +290,35 @@ section#gitcoindao a {
   font-size: 130%;
   background-color: transparent;
 }
-.ui input:focus,
 .ui select:focus {
   outline: none;
+  color: var(--meteor);
 }
 .ui label {
   font-size: 100%;
-  color: var(--purple);
   margin-bottom: 0.5em;
   display: block;
 }
 .ui ::placeholder {
   color: var(--grey);
+}
+#dropdowns {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+#dropdowns button {
+  cursor: pointer;
+  width: min-content;
+}
+#dropdowns select {
+  cursor: pointer;
+}
+#dropdowns .selects {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1rem;
 }
 
 @media (max-width: 688px) {
