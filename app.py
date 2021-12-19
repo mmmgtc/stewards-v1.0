@@ -2,15 +2,12 @@ import json
 import math
 import requests
 import pandas as pd
-from flask import Flask
+from flask import Flask, request
 from flask.templating import render_template
 
 app = Flask(__name__, static_folder="assets")
 
-
-@app.route("/", methods=["GET"])
-def main():
-
+def preprocess():
     stewards_data = pd.read_csv("stewards.csv")
     voting_power = []
     json_list = []
@@ -86,7 +83,7 @@ def main():
             response = requests.request("POST", url1, headers=headers, data=payload)
             res = json.loads(response.text)
             if res["data"]["account"] == None:
-                voting_power.append("NA")
+                voting_power.append(0)
             else:
                 power = "{:.2f}".format(
                     float(res["data"]["account"]["percentageOfTotalVotingPower"])
@@ -114,10 +111,10 @@ def main():
         r = requests.get(url)
 
         if str(result["votingweight"][i]) == "nan":
-            voting_participation.append("NA")
+            voting_participation.append(0)
 
         elif list(r.json().keys())[0] == "message":
-            voting_participation.append("NA")
+            voting_participation.append(0)
 
         else:
             url = "https://api.boardroom.info/v1/voters/" + str(result["address"][i])
@@ -133,4 +130,46 @@ def main():
         res = json.loads(df3["json"][i])
         json_list.append(res)
 
-    return render_template("index.html", stewards=json_list)
+    return json_list
+
+initial_list = preprocess()
+
+@app.route("/", methods=["GET", "POST"])
+def index():
+
+    if request.method == "POST":
+        data = [x for x in request.form.values()]
+
+        if data[0] == 'name':
+            if data[1] == 'True':
+                return render_template("index.html", stewards=sorted(initial_list, key=lambda k: k['name'], reverse=False))
+            else: 
+                return render_template("index.html", stewards=sorted(initial_list, key=lambda k: k['name'], reverse=True))
+
+        if data[0] == 'date':
+            if data[1] == 'True':
+                return render_template("index.html", stewards=sorted(initial_list, key=lambda k: k['steward_since'], reverse=False))
+            else: 
+                return render_template("index.html", stewards=sorted(initial_list, key=lambda k: k['steward_since'], reverse=True))
+        
+        if data[0] == 'voteparticipation':
+            if data[1] == 'True':
+                return render_template("index.html", stewards=sorted(initial_list, key=lambda k: k['voteparticipation'], reverse=False))
+            else: 
+                return render_template("index.html", stewards=sorted(initial_list,  key=lambda k: k['voteparticipation'], reverse=True))
+
+        if data[0] == 'votingweight':
+            if data[1] == 'True':
+                return render_template("index.html", stewards=sorted(initial_list, key=lambda k: float(k['votingweight']), reverse=False))
+            else: 
+                return render_template("index.html", stewards=sorted(initial_list, key=lambda k: float(k['votingweight']), reverse=True))
+
+        if data[0] == 'statement_post_id':
+            if data[1] == 'True':
+                return render_template("index.html", stewards=sorted(initial_list, key=lambda k: k['statement_post_id'], reverse=False))
+            else: 
+                return render_template("index.html", stewards=sorted(initial_list, key=lambda k: k['statement_post_id'], reverse=True))
+        
+        
+    else:
+        return render_template("index.html", stewards=initial_list)
