@@ -66,24 +66,32 @@
 
     <section class="ui">
       <div class="input-wrapper">
-        <form action="{{ url_for('index')}}" method="post">            
-          <select name="Values" id='dropdown'>
-              <option value="name">Name</option>
-              <option value="date">Date</option>
-              <option value="statement_post_id">Forum Posts</option>
-              <option value="voteparticipation">Vote Participation</option>
-              <option value="votingweight">Voting Weight</option>
+        <label for="search">Search</label>
+        <input
+          type="text"
+          id="search"
+          name="search"
+          onkeyup="search_stewards()"
+          placeholder="Name, Address, or Workstream..."
+        />
+      </div>
 
+      <div class="input-wrapper">
+        <form action="{{ url_for('index')}}" method="post">
+          <select name="Values" id="dropdown">
+            <option value="name">Name</option>
+            <option value="date">Date</option>
+            <option value="statement_post_id">Forum Posts</option>
+            <option value="voteparticipation">Vote Participation</option>
+            <option value="votingweight">Voting Weight</option>
           </select>
-          <select name="Order" id='dropdown'>
-            <option value=True>Ascending</option>
-            <option value=False>Descending</option>
-        </select>
+          <select name="Order" id="dropdown">
+            <option value="True">Ascending</option>
+            <option value="False">Descending</option>
+          </select>
 
-      </br>
-          <button type="submit" class="btn">Display</button>
-          
-      </form>
+          <button type="submit" class="btn">Apply</button>
+        </form>
       </div>
     </section>
 
@@ -93,11 +101,12 @@
       <div id="card" class="card" data-tags="">
         <!-- head -->
         <div class="head">
+          <p class="steward_address" hidden>{{ steward["address"] }}</p>
           <figure>
             <img
               id="image"
               loading="lazy"
-              src='../assets/stewards/{{ steward["image"] }}'
+              src='../assets/images/stewards/{{ steward["image"] }}'
               alt=""
             />
           </figure>
@@ -155,7 +164,7 @@
             </div>
             <div class="value truncate">
               <a id="workstream_url" href="#" target="_blank"
-                ><span id="workstream_name"
+                ><span id="workstream_name" class="workstream_name"
                   >{{ steward["workstream"] }}</span
                 ></a
               >
@@ -228,6 +237,7 @@
       </a>
     </section>
 
-    <!-- <script defer src="assets/js/app.js"></script> -->
+    <!-- Search bar -->
+    <script defer src="assets/js/search.js"></script>
   </body>
 </html>

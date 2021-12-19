@@ -162,6 +162,7 @@ section.grid {
 .card {
   background: var(--meteor_light);
   border-radius: 1em;
+  list-style-type: none;
 }
 
 /* HEAD */
