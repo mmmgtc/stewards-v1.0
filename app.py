@@ -125,6 +125,25 @@ def preprocess():
     df2 = pd.DataFrame(voting_participation, columns=["voteparticipation"])
     df3 = pd.concat([result, df2], axis=1)
 
+    l1 = []
+    for i in df3['workstream_short']:
+        if str(i) == "nan":
+            a1 = '-'
+            l1.append(a1)
+            #print('Replace this!')
+        elif str(i) == 'MMM':
+            l1.append('Merch, Memes, Marketing')
+        elif str(i) == 'PGF':
+            l1.append('Public Goods Funding')
+        elif str(i) == 'MC':
+            l1.append('Moonshot Collective')
+        elif str(i) == 'DG':
+            l1.append('Decentralize Gitcoin')
+        else:
+            l1.append('Fraud Detection & Defense')
+    
+
+    df3 = df3.drop('workstream_short', 1)
     df3["json"] = df3.to_json(orient="records", lines=True).splitlines()
     for i in range(len(stewards_data["address"])):
         res = json.loads(df3["json"][i])
