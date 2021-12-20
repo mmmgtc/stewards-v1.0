@@ -141,12 +141,15 @@ def preprocess():
             l1.append('Decentralize Gitcoin')
         else:
             l1.append('Fraud Detection & Defense')
-    
+
+    df_workstream = pd.DataFrame(l1,columns=['workstream'])
 
     df3 = df3.drop('workstream_short', 1)
-    df3["json"] = df3.to_json(orient="records", lines=True).splitlines()
+    df4 = pd.concat([df3, df_workstream], axis=1)
+
+    df4["json"] = df4.to_json(orient="records", lines=True).splitlines()
     for i in range(len(stewards_data["address"])):
-        res = json.loads(df3["json"][i])
+        res = json.loads(df4["json"][i])
         json_list.append(res)
 
     return json_list
