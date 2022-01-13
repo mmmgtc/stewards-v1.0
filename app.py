@@ -4,7 +4,7 @@ import requests
 import pandas as pd
 from flask import Flask, request
 from flask.templating import render_template
-
+import time
 from datetime import date, datetime
 from dotenv import load_dotenv
 import os
@@ -24,9 +24,9 @@ def get_voters(tup_arg):
 def tally(address):
     while True:
         try:
-            print(address)
+            #print(address)
             r = requests.get(f'https://gtcselenium.herokuapp.com/?a={address}')
-            print(r.json()['Total_participation_rate'])
+            #print(r.json()['Total_participation_rate'])
             return float(r.json()['Total_participation_rate'].strip('%'))
 
         except:
@@ -172,16 +172,14 @@ def preprocess():
             l1.append('Fraud Detection & Defense')
 
     df_workstream = pd.DataFrame(l1,columns=['workstream'])
-
+    #print('The workstreams are: ',df_workstream['workstream'])
     df3 = df3.drop('workstream_short', 1)
     df4 = pd.concat([df3, df_workstream], axis=1)
 
 
     #f_values
-
-
     df = pd.read_csv('stewards.csv')
-    post_count_list = []
+    f_value_list = []
     post_count_1 = requests.get("https://gov.gitcoin.co/u/" + df['username'][0] + ".json", headers={"Api-key": os.environ.get("DISCOURSE_API_KEY"),"Api-Username": os.environ.get("DISCOURSE_API_USERNAME")})
 
     datetime_object = datetime.strptime(str(df['steward_since'][0]), '%Y-%m-%d')
@@ -194,12 +192,12 @@ def preprocess():
     f_value_1 = post_count_1.json()['user']['post_count']/week_since_steward_1
 
     if round(float(f_value_1),2) == round(float(df['f_value'][0]),2):
-        post_count_list = list(df['f_value'])
+        f_value_list = list(df['f_value'])
     else:
         for username in df['username']:
-            print(username)
+            #print(username)
             s =  requests.get("https://gov.gitcoin.co/u/" + username + ".json", headers={"Api-key": os.environ.get("DISCOURSE_API_KEY"),"Api-Username": os.environ.get("DISCOURSE_API_USERNAME")})
-            post_count_list.append(int(s.json()['user']['post_count']))
+            f_value_list.append(int(s.json()['user']['post_count']))
 
     weeks_since_steward_list = []
     df_date = df['steward_since']
@@ -211,7 +209,7 @@ def preprocess():
         days = abs(date1-date2).days
         weeks_since_steward_list.append(int(days/7))
 
-    f_value = [i/j for i,j in zip(post_count_list,weeks_since_steward_list)]
+    f_value = [i/j for i,j in zip(f_value_list,weeks_since_steward_list)]
     f_value_final = []
     for i in f_value:
         if float(i) < 1.5:
@@ -331,17 +329,17 @@ def preprocess():
     #address_1 = tally(df['address'][0])
     #print('This is address 1:',address_1)
 
-    r_1 = requests.get('https://gtcselenium.herokuapp.com/?a='+df['address'][0])
+    r_1 = requests.get('https://gtcselenium.herokuapp.com/?a='+ df['address'][0])
 
     if type(r_1.json()['Total_participation_rate'].strip('%')) != float:
-        print("This works")
+        #print("This works")
         tally_paricipation_rate = df["Tally_participation_rate"]
-        print(tally_paricipation_rate)
+        #print(tally_paricipation_rate)
 
     elif tally(df['address'][0]) == float(df['Tally_participation_rate'][0]):
         #print("This works")
         tally_paricipation_rate = df["Tally_participation_rate"]
-        print(tally_paricipation_rate)
+        #print(tally_paricipation_rate)
         
     else:
         df['Tally_participation_rate'] = zip(*df.address.map(tally))
@@ -366,12 +364,34 @@ def preprocess():
             health_score_final.append(10.0)
     
     df5 = pd.DataFrame(health_score_final, columns=["Health Score"])
-    df6 = pd.concat([result, df5], axis=1)
-    df6["json"] = df6.to_json(orient="records", lines=True).splitlines()
+    #print("Health Score is:",df5["Health Score"])
+    df6 = pd.concat([df4, df5], axis=1)
+    #print('This is df6:',df6)
+    #Forum Post Count
+    s_1 = requests.get("https://gov.gitcoin.co/u/"+df['username'][0]+".json", headers={"Api-key": os.environ.get("DISCOURSE_API_KEY"),"Api-Username": os.environ.get("DISCOURSE_API_USERNAME")})
+    if s_1.json()['user']['post_count'] == df['forum_post_count_base'][0]:
+            forum_post_count_list = list(df["forum_post_count_base"])
+            #print(forum_post_count_list)
+    else:
+        forum_post_count_list = []
+        for username in df['username']:
+            #print(username)
+            s = requests.get("https://gov.gitcoin.co/u/" + username + ".json", headers={"Api-key": os.environ.get("DISCOURSE_API_KEY"),"Api-Username": os.environ.get("DISCOURSE_API_USERNAME")})
+            #print(s.json())
+            forum_post_count_list.append(s.json()['user']['post_count'])
+            #print(forum_post_count_list)
+            time.sleep(1)
+        df['forum_post_count'] = pd.DataFrame(forum_post_count_list)
+        df.to_csv('stewards.csv', index=False)
+    df7 = pd.DataFrame(forum_post_count_list, columns=["forum_post_count"])
+    #print("forum_post_count is:",df7["forum_post_count"])
+    df8 = pd.concat([df6, df7], axis=1)
+
+    df8["json"] = df8.to_json(orient="records", lines=True).splitlines()
     for i in range(len(stewards_data["address"])):
-        res = json.loads(df6["json"][i])
+        res = json.loads(df8["json"][i])
         json_list.append(res)
-    print(json_list)
+    #print(json_list[0])
     return json_list
 
 initial_list = preprocess()

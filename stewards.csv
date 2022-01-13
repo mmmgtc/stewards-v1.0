@@ -1,61 +1,61 @@
-name,image,username,handle_gitcoin,statement_post_id,steward_since,workstream_short,address,w_value,Tally_participation_rate,f_value
-Trenton Van Epps,tvanepps.png,trent,tvanepps,12,2021-05-25,,0x4c0a466df0628fe8699051b3ac6506653191cc21,2,40,0.333333333333333
-Austin Griffith,austintgriffith.png,austingriffith,austintgriffith,31,2021-05-25,MC,0x34aa3f359a9d614239015126635ce7732c18fdf3,3,22.22,0.181818181818182
-Linda Xie,linda-xie.png,linda,linda-xie,6,2021-05-25,PGF,0x5e349eca2dc61aBCd9dD99Ce94d04136151a09Ee,2,50,0.606060606060606
-Lefteris Karapetsas,lefterisjp.png,lefterisjp,lefterisjp,4,2021-05-25,,0x2b888954421b424c5d3d9ce9bb67c9bd47537d12,2,72.73,1.5
-Griff Green,griffgreen.png,griff,griffgreen,28,2021-05-25,,0x839395e20bbb182fa440d08f850e6c7a8f6f0780,2,66.67,0.272727272727273
-Simona Pop,simona-pop.png,Pop,simona-pop,5,2021-05-25,PGF,0x54becc7560a7be76d72ed76a1f5fee6c5a2a7ab6,3,90.91,0.606060606060606
-Yalor Arnold,yalormewn.png,Yalor,yalormewn,2,2021-05-25,PGF,0x66b1de0f14a0ce971f7f248415063d44caf19398,2,66.67,1.5
-Hudson Jameson,souptacular.png,souptacular,souptacular,46,2021-05-25,,0x80d63799b1e08a80f73fb7a83264b5c31600bf3a,2,66.67,0.060606060606061
-Kenneth Ng,nkennethk.png,ken,nkennethk,14,2021-05-25,PGF,0xa2bf1b0a7e079767b4701b5a1d9d5700eb42d1d1,2,50,0.03030303030303
-Andy Tudhope,andytudhope.png,cryptowanderer,andytudhope,18,2021-05-25,,0x31482858561725b74b5ec2a739e447bc74cdf7b9,2,14.29,0.212121212121212
-Shreyas Hariharan,hello-shreyas.png,HelloShreyas,hello-shreyas,21,2021-05-25,PGF,0x10d6d2e343281d388291a3e02f3293aaeda67178,2,58.33,0.303030303030303
-Matt Stephenson,mrbrucespringsteen.png,planckmatt,mrbrucespringsteen,10,2021-05-25,,0x5ba02f4ff6af1d9d2af8774d10fd32eb57d4e2e6,2,100,0.090909090909091
-Pet3r,pet3r-pan.png,pet3rpan,pet3r-pan,11,2021-05-25,,0x68898b237823448475bd50ea0bb6e4a20b71ff63,2,0,0.060606060606061
-Anish Agnihotri,anish-agnihotri.png,anishagnihotri,anish-agnihotri,23,2021-05-25,,0x016C8780e5ccB32E5CAA342a926794cE64d9C364,2,0,0.03030303030303
-Muskan Kalra,muskaankalra24.png,muskan,muskaankalra24,8,2021-05-25,,0x4bc519f0b7b348fae780afb2dd4aa76841ba8e9e,2,0,0.03030303030303
-Andrew Lloyd,androolloyd.png,androolloyd,androolloyd,26,2021-05-25,,0x86d3ee9ff0983bc33b93cc8983371a500f873446,2,0,0.878787878787879
-Thomas Jay Rush,tjayrush.png,tjayrush,tjayrush,16,2021-05-25,,0xf503017d7baf7fbc0fff7492b751025c6a78179b,2,72.73,1.21212121212121
-Philip Silva,ubipromoter.png,UBIpromoter,ubipromoter,15,2021-05-25,,0xd9ffaf2e880df0cc7b7104e9e789d281a81824cf,2,0,0.03030303030303
-Anne Connelly,anneconnelly.png,anneconnelly,anneconnelly,13,2021-05-25,,0xa30ab83e693ad49f3f651085dad11d049c818923,2,18.18,0.151515151515152
-Auryn Macmillan,auryn-macmillan.png,auryn,auryn-macmillan,22,2021-05-25,,0x8b405dbf2f30844b608b08dad20447a6955a6c6e,2,16.67,0.787878787878788
-Charles St.Louis,cpstl.png,cpstl,cpstl,33,2021-05-25,,0x88cca876eebb2a541ed87584f189319c3441aca6,2,0,0.03030303030303
-Nathan Schneider,ntnsndr.png,ntnsndr,ntnsndr,42,2021-05-25,,0x6375885ce997543cc7e057fe9af3e255d52fb4f4,2,0,0.272727272727273
-Suji Yan,tedko.png,sujiyan,tedko,55,2021-05-25,,0x934b510d4c9103e6a87aef13b816fb080286d649,2,0,0.181818181818182
-Monet Supply,monet-supply.png,monet-supply,monet-supply,44,2021-05-25,,0x8d07d225a769b7af3a923481e1fdf49180e6a265,2,100,0.181818181818182
-Amy Jung,amy-jung.png,amy,amy-jung,32,2021-05-25,,0x73186b2a81952c2340c4eb2e74e89869e1183df0,2,18.18,0.090909090909091
-Daniel Hwang,mangorocoro.png,dan,mangorocoro,36,2021-05-25,,0xc3fab4228ce462653dbf0bb3e4f3fdd81697fec4,2,0,0.03030303030303
-Philip Hutchins,phutchins.png,phutchins,phutchins,41,2021-05-25,DG,0x6bf1eba9740441d0a8822eda4e116a74f850d81b,3,75,0.545454545454545
-Alex Van de Sande,alexvansande.png,AvsA,alexvansande,140,2021-06-07,,0x809FA673fe2ab515FaA168259cB14E2BeDeBF68e,2,0,0.096774193548387
-Toby Shorin,tobyshorin.png,Toby,tobyshorin,39,2021-05-25,PGF,0xc7e6bbf6dbe78b40640385e73dc1958f4428fb3e,3,75,0.181818181818182
-Cooper Turley,fireeyesxyz.png,coopahtroopa,fireeyesxyz,9,2021-05-25,,0xd23aff9ad562c445bcab03321cbfe63bf4b0bcf2,2,0,0.090909090909091
-Makoto Inoue,makoto.png,makoto,makoto,17,2021-05-25,,0x5a384227b65fa093dec03ec34e111db80a040615,2,0,0.606060606060606
-Zak Cole,zakcole.png,Zscole,zakcole,38,2021-05-25,,0x554c5aF96E9e3c05AEC01ce18221d0DD25975aB4,2,0,0.060606060606061
-Andre Cronje,andrecronje.png,andrecronje,andrecronje,131,2021-06-01,,0x2d407ddb06311396fe14d4b49da5f0471447d45c,2,0,0.03125
-Joseph Schiarizzi ,jschiarizzi.png,cupOjoseph,jschiarizzi,50,2021-05-25,,0xe4b420f15d6d878dcd0df7120ac0fc1509ee9cab,2,100,0.090909090909091
-Niran Babalola,niran.png,Niran,niran,30,2021-05-25,,0x02Eb89D2ff910989024e19673f8302a695bBD979,2,9.09,0.03030303030303
-Lakshman Sankar,sankar4033.png,lakshman,sankar4033,81,2021-05-26,,0xed625c9ABa1245Fa8e22eb1f1825881517A9DCE7,2,0,0.03030303030303
-Anett Rolikova,anettrolikova.png,Anett,anettrolikova,3,2021-05-25,,0x16d2ad8cc04888b537bb7b631715335a901b57ca,2,0,0.424242424242424
-Adam Stallard,adamstallard.png,castall,adamstallard,19,2021-05-25,,0xdC0046B52e2E38AEe2271B6171ebb65cCD337518,2,14.29,0.272727272727273
-Willy Ogorzaly,willyogo.png,Willy,willyogo,52,2021-05-25,,0x05a1ff0a32bc24265bcb39499d0c5d9a6cb2011c,2,100,0.03030303030303
-Adam Cohran,adamsc1-ddg.png,Adamscochran,adamsc1-ddg,62,2021-05-26,,0xf07A2439296e07Bc4320AF924E655a01fb69D89C,2,11.11,0.484848484848485
-sangbejo,sangbejo.png,porobov_p,sangbejo,139,2021-06-04,,0x45735683E432A5701959fc4D2e0FAB19dc7D1d58,2,0,0.096774193548387
-decibels,decibels42.png,decibels42,decibels42,45,2021-05-25,,0xf4c7E772f24c10E3Ce60CE549059a021F60c911E,2,0,0.03030303030303
-Peth,peth-yursick.png,peth,peth-yursick,25,2021-05-25,,0xb53b0255895c4f9e3a185e484e5b674bccfbc076,2,0,0.060606060606061
-Sina Habibian,sinahab.png,sinahab,sinahab,117,2021-05-29,,0x03B79C0C1487a68AeabD9AA4ce779DaD77855F52,2,0,0.03125
-Jordan Lyall,jordanlyall.png,jordanlyall,jordanlyall,20,2021-05-25,,0xcf88fa6ee6d111b04be9b06ef6fad6bd6691b88c,2,0,0.03030303030303
-Aaron,amsos.png,amsos,amsos,7,2021-05-25,,0x58f123BD4261EA25955B362Be57D89F4B6E7110a,2,0,0.242424242424242
-Typto,typto.png,Typto,typto,49,2021-05-25,,0x9ac9c636404C8d46D9eb966d7179983Ba5a3941A,2,0,0.090909090909091
-Angela,angelakte.png,akrtws,angelakte,100,2021-05-27,,0x3b067af83f540cb827825a6ee5480441a4237e77,2,0,0.121212121212121
-juliana,itsencrypted.png,itsencrypted,itsencrypted,58,2021-05-25,,0x4f0a1940De411285ad0455a7F40C81B5E0BC8492,2,0,0.090909090909091
-Petr Porobov,porobov.png,porobov_p,porobov,138,2021-06-04,,0x45735683E432A5701959fc4D2e0FAB19dc7D1d58,2,0,0.096774193548387
-Chris Martz,martz.png,martz,martz,37,2021-05-25,,0x224e69025A2f705C8f31EFB6694398f8Fd09ac5C,2,100,0.454545454545455
-Armand Brunelle,sirlupsonwatson1.png,Sirlupinwatson,Sirlupinwatson1,123,2021-05-29,FDD,0xEe0579b4C36fd52EC0A2B542fb801F136838B7f1,3,45.45,1.5
-Bob Jiang,bobjiang.png,bobjiang,bobjiang,113,2021-05-28,FDD,0x521aacb43d89e1b8ffd64d9ef76b0a1074dedaf8,3,33.33,1.5
-Kris Is,krrisis.png,krrisis,krrisis,146,2021-06-10,MMM,0x7E052Ef7B4bB7E5A45F331128AFadB1E589deaF1,2,25,0.838709677419355
-Brittney Scott,brittneyscott.png,seedphrase,brittneyscott,149,2021-06-11,MMM,0x4a5B536A613E69F43a52f6Aa7A7F3765428329ad,3,18.18,0.4
-Accelerated Capital,accelerated-capital.png,AcceleratedCapital,accelerated-capital,182,2021-07-15,,0xC714a62A4BF7ff475C8dc3E589e1388342A38BB8,2,0,0.076923076923077
-David (please DYOR...),blazingthirdeye.png,blazingthirdeye,blazingthirdeye,148,2021-06-11,FDD,0x59AE7f21D18b2F5fDC7a99c4fd6dD9E67Cec0Bc9,2,0,1.5
-paul g,paulglavin.png,paul2,paul2,107,2021-05-28,,0x809C9f8dd8CA93A41c3adca4972Fa234C28F7714,2,16.67,0.09375
-Collin Pixley,cpix18.png,CPix18,cpix18,43,2021-05-25,,0x3ec44a823e07555b5f889d8d954eec736eb5865b,2,0,0.03030303030303
-Craig Anderson,cranders1.png,cranders1,cranders1,116,2021-05-29,,0x0585B28Fd862d3bF033bE20b178BDF01262b8424,2,100,0.03125
+name,image,username,handle_gitcoin,statement_post_id,steward_since,workstream_short,address,w_value,Tally_participation_rate,f_value,forum_post_count_base
+Trenton Van Epps,tvanepps.png,trent,tvanepps,12,2021-05-25,,0x4c0a466df0628fe8699051b3ac6506653191cc21,2,40,0.333333333333333,11
+Austin Griffith,austintgriffith.png,austingriffith,austintgriffith,31,2021-05-25,MC,0x34aa3f359a9d614239015126635ce7732c18fdf3,3,22.22,0.181818181818182,6
+Linda Xie,linda-xie.png,linda,linda-xie,6,2021-05-25,PGF,0x5e349eca2dc61aBCd9dD99Ce94d04136151a09Ee,2,50,0.606060606060606,20
+Lefteris Karapetsas,lefterisjp.png,lefterisjp,lefterisjp,4,2021-05-25,,0x2b888954421b424c5d3d9ce9bb67c9bd47537d12,2,72.73,1.5,59
+Griff Green,griffgreen.png,griff,griffgreen,28,2021-05-25,,0x839395e20bbb182fa440d08f850e6c7a8f6f0780,2,66.67,0.272727272727273,9
+Simona Pop,simona-pop.png,Pop,simona-pop,5,2021-05-25,PGF,0x54becc7560a7be76d72ed76a1f5fee6c5a2a7ab6,3,90.91,0.606060606060606,21
+Yalor Arnold,yalormewn.png,Yalor,yalormewn,2,2021-05-25,PGF,0x66b1de0f14a0ce971f7f248415063d44caf19398,2,66.67,1.5,52
+Hudson Jameson,souptacular.png,souptacular,souptacular,46,2021-05-25,,0x80d63799b1e08a80f73fb7a83264b5c31600bf3a,2,66.67,0.060606060606061,2
+Kenneth Ng,nkennethk.png,ken,nkennethk,14,2021-05-25,PGF,0xa2bf1b0a7e079767b4701b5a1d9d5700eb42d1d1,2,50,0.03030303030303,1
+Andy Tudhope,andytudhope.png,cryptowanderer,andytudhope,18,2021-05-25,,0x31482858561725b74b5ec2a739e447bc74cdf7b9,2,14.29,0.212121212121212,7
+Shreyas Hariharan,hello-shreyas.png,HelloShreyas,hello-shreyas,21,2021-05-25,PGF,0x10d6d2e343281d388291a3e02f3293aaeda67178,2,58.33,0.303030303030303,10
+Matt Stephenson,mrbrucespringsteen.png,planckmatt,mrbrucespringsteen,10,2021-05-25,,0x5ba02f4ff6af1d9d2af8774d10fd32eb57d4e2e6,2,100,0.090909090909091,3
+Pet3r,pet3r-pan.png,pet3rpan,pet3r-pan,11,2021-05-25,,0x68898b237823448475bd50ea0bb6e4a20b71ff63,2,0,0.060606060606061,2
+Anish Agnihotri,anish-agnihotri.png,anishagnihotri,anish-agnihotri,23,2021-05-25,,0x016C8780e5ccB32E5CAA342a926794cE64d9C364,2,0,0.03030303030303,1
+Muskan Kalra,muskaankalra24.png,muskan,muskaankalra24,8,2021-05-25,,0x4bc519f0b7b348fae780afb2dd4aa76841ba8e9e,2,0,0.03030303030303,1
+Andrew Lloyd,androolloyd.png,androolloyd,androolloyd,26,2021-05-25,,0x86d3ee9ff0983bc33b93cc8983371a500f873446,2,0,0.878787878787879,29
+Thomas Jay Rush,tjayrush.png,tjayrush,tjayrush,16,2021-05-25,,0xf503017d7baf7fbc0fff7492b751025c6a78179b,2,72.73,1.21212121212121,40
+Philip Silva,ubipromoter.png,UBIpromoter,ubipromoter,15,2021-05-25,,0xd9ffaf2e880df0cc7b7104e9e789d281a81824cf,2,0,0.03030303030303,1
+Anne Connelly,anneconnelly.png,anneconnelly,anneconnelly,13,2021-05-25,,0xa30ab83e693ad49f3f651085dad11d049c818923,2,18.18,0.151515151515152,5
+Auryn Macmillan,auryn-macmillan.png,auryn,auryn-macmillan,22,2021-05-25,,0x8b405dbf2f30844b608b08dad20447a6955a6c6e,2,16.67,0.787878787878788,26
+Charles St.Louis,cpstl.png,cpstl,cpstl,33,2021-05-25,,0x88cca876eebb2a541ed87584f189319c3441aca6,2,0,0.03030303030303,1
+Nathan Schneider,ntnsndr.png,ntnsndr,ntnsndr,42,2021-05-25,,0x6375885ce997543cc7e057fe9af3e255d52fb4f4,2,0,0.272727272727273,9
+Suji Yan,tedko.png,sujiyan,tedko,55,2021-05-25,,0x934b510d4c9103e6a87aef13b816fb080286d649,2,0,0.181818181818182,6
+Monet Supply,monet-supply.png,monet-supply,monet-supply,44,2021-05-25,,0x8d07d225a769b7af3a923481e1fdf49180e6a265,2,100,0.181818181818182,6
+Amy Jung,amy-jung.png,amy,amy-jung,32,2021-05-25,,0x73186b2a81952c2340c4eb2e74e89869e1183df0,2,18.18,0.090909090909091,3
+Daniel Hwang,mangorocoro.png,dan,mangorocoro,36,2021-05-25,,0xc3fab4228ce462653dbf0bb3e4f3fdd81697fec4,2,0,0.03030303030303,1
+Philip Hutchins,phutchins.png,phutchins,phutchins,41,2021-05-25,DG,0x6bf1eba9740441d0a8822eda4e116a74f850d81b,3,75,0.545454545454545,18
+Alex Van de Sande,alexvansande.png,AvsA,alexvansande,140,2021-06-07,,0x809FA673fe2ab515FaA168259cB14E2BeDeBF68e,2,0,0.096774193548387,3
+Toby Shorin,tobyshorin.png,Toby,tobyshorin,39,2021-05-25,PGF,0xc7e6bbf6dbe78b40640385e73dc1958f4428fb3e,3,75,0.181818181818182,6
+Cooper Turley,fireeyesxyz.png,coopahtroopa,fireeyesxyz,9,2021-05-25,,0xd23aff9ad562c445bcab03321cbfe63bf4b0bcf2,2,0,0.090909090909091,3
+Makoto Inoue,makoto.png,makoto,makoto,17,2021-05-25,,0x5a384227b65fa093dec03ec34e111db80a040615,2,0,0.606060606060606,20
+Zak Cole,zakcole.png,Zscole,zakcole,38,2021-05-25,,0x554c5aF96E9e3c05AEC01ce18221d0DD25975aB4,2,0,0.060606060606061,2
+Andre Cronje,andrecronje.png,andrecronje,andrecronje,131,2021-06-01,,0x2d407ddb06311396fe14d4b49da5f0471447d45c,2,0,0.03125,1
+Joseph Schiarizzi ,jschiarizzi.png,cupOjoseph,jschiarizzi,50,2021-05-25,,0xe4b420f15d6d878dcd0df7120ac0fc1509ee9cab,2,100,0.090909090909091,3
+Niran Babalola,niran.png,Niran,niran,30,2021-05-25,,0x02Eb89D2ff910989024e19673f8302a695bBD979,2,9.09,0.03030303030303,1
+Lakshman Sankar,sankar4033.png,lakshman,sankar4033,81,2021-05-26,,0xed625c9ABa1245Fa8e22eb1f1825881517A9DCE7,2,0,0.03030303030303,1
+Anett Rolikova,anettrolikova.png,Anett,anettrolikova,3,2021-05-25,,0x16d2ad8cc04888b537bb7b631715335a901b57ca,2,0,0.424242424242424,14
+Adam Stallard,adamstallard.png,castall,adamstallard,19,2021-05-25,,0xdC0046B52e2E38AEe2271B6171ebb65cCD337518,2,14.29,0.272727272727273,9
+Willy Ogorzaly,willyogo.png,Willy,willyogo,52,2021-05-25,,0x05a1ff0a32bc24265bcb39499d0c5d9a6cb2011c,2,100,0.03030303030303,1
+Adam Cohran,adamsc1-ddg.png,Adamscochran,adamsc1-ddg,62,2021-05-26,,0xf07A2439296e07Bc4320AF924E655a01fb69D89C,2,11.11,0.484848484848485,16
+sangbejo,sangbejo.png,porobov_p,sangbejo,139,2021-06-04,,0x45735683E432A5701959fc4D2e0FAB19dc7D1d58,2,0,0.096774193548387,3
+decibels,decibels42.png,decibels42,decibels42,45,2021-05-25,,0xf4c7E772f24c10E3Ce60CE549059a021F60c911E,2,0,0.03030303030303,1
+Peth,peth-yursick.png,peth,peth-yursick,25,2021-05-25,,0xb53b0255895c4f9e3a185e484e5b674bccfbc076,2,0,0.060606060606061,2
+Sina Habibian,sinahab.png,sinahab,sinahab,117,2021-05-29,,0x03B79C0C1487a68AeabD9AA4ce779DaD77855F52,2,0,0.03125,1
+Jordan Lyall,jordanlyall.png,jordanlyall,jordanlyall,20,2021-05-25,,0xcf88fa6ee6d111b04be9b06ef6fad6bd6691b88c,2,0,0.03030303030303,1
+Aaron,amsos.png,amsos,amsos,7,2021-05-25,,0x58f123BD4261EA25955B362Be57D89F4B6E7110a,2,0,0.242424242424242,8
+Typto,typto.png,Typto,typto,49,2021-05-25,,0x9ac9c636404C8d46D9eb966d7179983Ba5a3941A,2,0,0.090909090909091,3
+Angela,angelakte.png,akrtws,angelakte,100,2021-05-27,,0x3b067af83f540cb827825a6ee5480441a4237e77,2,0,0.121212121212121,4
+juliana,itsencrypted.png,itsencrypted,itsencrypted,58,2021-05-25,,0x4f0a1940De411285ad0455a7F40C81B5E0BC8492,2,0,0.090909090909091,3
+Petr Porobov,porobov.png,porobov_p,porobov,138,2021-06-04,,0x45735683E432A5701959fc4D2e0FAB19dc7D1d58,2,0,0.096774193548387,3
+Chris Martz,martz.png,martz,martz,37,2021-05-25,,0x224e69025A2f705C8f31EFB6694398f8Fd09ac5C,2,100,0.454545454545455,15
+Armand Brunelle,sirlupsonwatson1.png,Sirlupinwatson,Sirlupinwatson1,123,2021-05-29,FDD,0xEe0579b4C36fd52EC0A2B542fb801F136838B7f1,3,45.45,1.5,79
+Bob Jiang,bobjiang.png,bobjiang,bobjiang,113,2021-05-28,FDD,0x521aacb43d89e1b8ffd64d9ef76b0a1074dedaf8,3,33.33,1.5,64
+Kris Is,krrisis.png,krrisis,krrisis,146,2021-06-10,MMM,0x7E052Ef7B4bB7E5A45F331128AFadB1E589deaF1,2,25,0.838709677419355,26
+Brittney Scott,brittneyscott.png,seedphrase,brittneyscott,149,2021-06-11,MMM,0x4a5B536A613E69F43a52f6Aa7A7F3765428329ad,3,18.18,0.4,12
+Accelerated Capital,accelerated-capital.png,AcceleratedCapital,accelerated-capital,182,2021-07-15,,0xC714a62A4BF7ff475C8dc3E589e1388342A38BB8,2,0,0.076923076923077,2
+David (please DYOR...),blazingthirdeye.png,blazingthirdeye,blazingthirdeye,148,2021-06-11,FDD,0x59AE7f21D18b2F5fDC7a99c4fd6dD9E67Cec0Bc9,2,0,1.5,45
+paul g,paulglavin.png,paul2,paul2,107,2021-05-28,,0x809C9f8dd8CA93A41c3adca4972Fa234C28F7714,2,16.67,0.09375,3
+Collin Pixley,cpix18.png,CPix18,cpix18,43,2021-05-25,,0x3ec44a823e07555b5f889d8d954eec736eb5865b,2,0,0.03030303030303,1
+Craig Anderson,cranders1.png,cranders1,cranders1,116,2021-05-29,,0x0585B28Fd862d3bF033bE20b178BDF01262b8424,2,100,0.03125,1
