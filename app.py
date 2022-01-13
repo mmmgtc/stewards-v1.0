@@ -5,6 +5,34 @@ import pandas as pd
 from flask import Flask, request
 from flask.templating import render_template
 
+from datetime import date, datetime
+from dotenv import load_dotenv
+import os
+import multiprocessing.pool
+
+
+load_dotenv()
+
+def get_voters(pid):
+    p_query = query.replace("proposal_id",pid)
+    r = requests.post(url, json={'query': p_query})
+    votes = r.json()['data']['votes']
+    return [v['voter'].lower() for v in votes]
+
+
+def tally(address):
+    while True:
+        try:
+            print(address)
+            r = requests.get(f'https://gtcselenium.herokuapp.com/?a={address}')
+            print(r.json()['Total_participation_rate'])
+            return float(r.json()['Total_participation_rate'].strip('%'))
+
+        except:
+            continue
+        break
+
+
 app = Flask(__name__, static_folder="assets")
 
 def preprocess():
