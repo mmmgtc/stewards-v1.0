@@ -13,7 +13,8 @@ import multiprocessing.pool
 
 load_dotenv()
 
-def get_voters(pid):
+def get_voters(tup_arg):
+    pid, query, url = tup_arg
     p_query = query.replace("proposal_id",pid)
     r = requests.post(url, json={'query': p_query})
     votes = r.json()['data']['votes']
@@ -292,8 +293,10 @@ def preprocess():
 
     voter_presence = dict()
 
+    arg_list = [(pid, query, url) for pid in p_id_list]
     multipool = multiprocessing.pool.ThreadPool(processes=50)
-    list_of_voters = multipool.map(get_voters, p_id_list, chunksize=1)
+    list_of_voters = multipool.map(get_voters, arg_list, chunksize=1)
+    
     for voters in list_of_voters:
         for voter in voters:
             if voter in voter_presence:
@@ -325,16 +328,25 @@ def preprocess():
 
     #tally_api_percentage_list = []
     
-    address_1 = tally(df['address'][0])
+    #address_1 = tally(df['address'][0])
+    #print('This is address 1:',address_1)
 
-    if address_1 == float(df['Tally_participation_rate'][0]):
-        tally_paricipation_rate = list(df["Tally_participation_rate"])
+    r_1 = requests.get('https://gtcselenium.herokuapp.com/?a='+df['address'][0])
+
+    if type(r_1.json()['Total_participation_rate'].strip('%')) != float:
+        print("This works")
+        tally_paricipation_rate = df["Tally_participation_rate"]
+        print(tally_paricipation_rate)
+
+    elif tally(df['address'][0]) == float(df['Tally_participation_rate'][0]):
+        #print("This works")
+        tally_paricipation_rate = df["Tally_participation_rate"]
         print(tally_paricipation_rate)
         
     else:
         df['Tally_participation_rate'] = zip(*df.address.map(tally))
         df.to_csv('stewards.csv', index=False)
-        tally_paricipation_rate = list(df["Tally_participation_rate"])
+        #print(tally(address_1))
 
 
     v_value = [round((2.2*i+1.5*j)/2,2) for i,j in zip(snapshot_api_percentage_list,tally_paricipation_rate)]
@@ -359,7 +371,7 @@ def preprocess():
     for i in range(len(stewards_data["address"])):
         res = json.loads(df6["json"][i])
         json_list.append(res)
-
+    print(json_list)
     return json_list
 
 initial_list = preprocess()
