@@ -2,3 +2,4 @@
 config.codekit3
 .venv
 .project
+.env
