@@ -288,8 +288,9 @@ section#gitcoindao a {
 .ui .input-wrapper {
   padding: 1em;
   background-color: var(--meteor_light);
-  width: 100%;
+  width: 50vw;
   border-radius: 6px;
+  padding: 2rem;
 }
 .ui input,
 .ui select {
