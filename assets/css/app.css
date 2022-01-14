@@ -282,14 +282,12 @@ section#gitcoindao a {
   flex-direction: row;
   align-items: center;
   justify-content: start;
-  margin: 0em 2em;
 }
 .ui .input-wrapper {
-  padding: 1em;
+  margin: 0em 2em;
   background-color: var(--meteor_light);
   width: 50vw;
   border-radius: 6px;
-  padding: 2rem;
 }
 .ui input,
 .ui select {
