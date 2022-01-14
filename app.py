@@ -541,7 +541,7 @@ def index():
                     "index.html",
                     stewards=sorted(
                         initial_list,
-                        key=lambda k: k["health"],
+                        key=lambda k: k["Health Score"],
                         reverse=False,
                     ),
                 )
@@ -549,7 +549,7 @@ def index():
                 return render_template(
                     "index.html",
                     stewards=sorted(
-                        initial_list, key=lambda k: k["health"], reverse=True
+                        initial_list, key=lambda k: k["Health Score"], reverse=True
                     ),
                 )
 
