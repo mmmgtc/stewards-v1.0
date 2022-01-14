@@ -142,10 +142,10 @@ def preprocess():
         r = requests.get(url)
 
         if str(result["votingweight"][i]) == "nan":
-            voting_participation.append(0)
+            voting_participation.append(0.00)
 
         elif list(r.json().keys())[0] == "message":
-            voting_participation.append(0)
+            voting_participation.append(0.00)
 
         else:
             url = "https://api.boardroom.info/v1/voters/" + str(result["address"][i])
