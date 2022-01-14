@@ -270,6 +270,12 @@ section#gitcoindao a {
   text-decoration: none;
 }
 
+.select {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
 .ui {
   display: grid;
   grid-template-columns: 2fr 2fr;
@@ -298,6 +304,7 @@ section#gitcoindao a {
   font-size: 100%;
   margin-bottom: 0.5em;
   display: block;
+  color: var(--purple);
 }
 .ui ::placeholder {
   color: var(--grey);
