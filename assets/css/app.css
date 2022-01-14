@@ -190,7 +190,7 @@ section.grid {
   margin-right: 1em;
 }
 .card .head .health h2 {
-  text-align: center;
+  text-align: right;
   margin-bottom: 0.5rem;
 }
 
