@@ -78,20 +78,24 @@
 
       <form action="{{ url_for('index')}}" method="post" id="dropdowns">
         <div class="input-wrapper">
-          <label for="Values">Order by</label>
-          <select name="Values" id="dropdown">
-            <option value="name">Name</option>
-            <option value="date">Date</option>
-            <option value="statement_post_id">Forum Posts</option>
-            <option value="voteparticipation">Vote Participation</option>
-            <option value="votingweight">Voting Weight</option>
-            <option value="health">Health</option>
-          </select>
-          <label for="Order">Display</label>
-          <select name="Order" id="dropdown">
-            <option value="True">Ascending</option>
-            <option value="False">Descending</option>
-          </select>
+          <div class="selects">
+            <label for="Values">Order by</label>
+            <select name="Values" id="dropdown">
+              <option value="name">Name</option>
+              <option value="date">Date</option>
+              <option value="statement_post_id">Forum Posts</option>
+              <option value="voteparticipation">Vote Participation</option>
+              <option value="votingweight">Voting Weight</option>
+              <option value="health">Health</option>
+            </select>
+          </div>
+          <div class="selects">
+            <label for="Order">Display</label>
+            <select name="Order" id="dropdown">
+              <option value="True">Ascending</option>
+              <option value="False">Descending</option>
+            </select>
+          </div>
 
           <button type="submit" class="btn">Apply</button>
         </div>
