@@ -289,9 +289,16 @@ section#gitcoindao a {
   width: 50vw;
   border-radius: 6px;
 }
+.ui .input-wrapper .selects .select {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+}
+
 .ui input,
 .ui select {
-  width: 100%;
+  width: 
   border: none;
   color: var(--white);
   font-size: 130%;
