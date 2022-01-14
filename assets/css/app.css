@@ -278,10 +278,10 @@ section#gitcoindao a {
 }
 
 .ui {
-  display: grid;
-  grid-template-columns: 2fr 2fr;
-  margin: 0em 2em;
-  gap: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
 }
 .ui .input-wrapper {
   padding: 1em;
@@ -302,6 +302,7 @@ section#gitcoindao a {
   color: var(--meteor);
 }
 .ui label {
+  text-align: left;
   font-size: 100%;
   margin-bottom: 0.5em;
   display: block;
