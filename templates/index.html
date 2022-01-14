@@ -76,8 +76,8 @@
         />
       </div>
 
-      <form action="{{ url_for('index')}}" method="post" id="dropdowns">
-        <div class="input-wrapper">
+      <div class="input-wrapper">
+        <form action="{{ url_for('index')}}" method="post" id="dropdowns">
           <div class="selects">
             <div class="select">
               <label for="Values">Order by</label>
@@ -98,9 +98,9 @@
               </select>
             </div>
           </div>
-        </div>
-        <button type="submit" class="btn">Apply</button>
-      </form>
+          <button type="submit" class="btn">Apply</button>
+        </form>
+      </div>
     </section>
 
     <!-- stewards -->
