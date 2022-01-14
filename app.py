@@ -359,9 +359,9 @@ def preprocess():
     health_score_final = []
     for i in health_score:
         if i <= 10.0:
-            health_score_final.append(i)
+            health_score_final.append(int(i))
         else:
-            health_score_final.append(10.0)
+            health_score_final.append(10)
     
     df5 = pd.DataFrame(health_score_final, columns=["Health Score"])
     #print("Health Score is:",df5["Health Score"])
