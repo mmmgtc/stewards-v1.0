@@ -32,8 +32,6 @@ def tally(address):
 
         except:
             continue
-        break
-
 
 app = Flask(__name__, static_folder="assets")
 
@@ -201,12 +199,17 @@ def preprocess():
     )
     days_1 = abs(date1_1 - date2_1).days
     week_since_steward_1 = int(days_1 / 7)
-
-    f_value_1 = post_count_1.json()["user"]["post_count"] / week_since_steward_1
-
+    #print(post_count_1.json())
+    post_count_value = 0
+    try:
+        post_count_value = int(post_count_1.json()["user"]["post_count"])
+    except:
+        pass
+    f_value_1 = post_count_value / week_since_steward_1
     if round(float(f_value_1), 2) == round(float(df["f_value"][0]), 2):
         f_value_list = list(df["f_value"])
     else:
+        posts_count_value = 0
         for username in df["username"]:
             # print(username)
             s = requests.get(
@@ -216,8 +219,13 @@ def preprocess():
                     "Api-Username": os.environ.get("DISCOURSE_API_USERNAME"),
                 },
             )
-            f_value_list.append(int(s.json()["user"]["post_count"]))
-
+            #f_value_list.append(int(s.json()["user"]["post_count"]))
+            #print(s.json()["topics"][0]["posts_count"])
+            try:
+                posts_count_value = int(s.json()["user"]["post_count"])
+            except:
+                pass
+            f_value_list.append(posts_count_value)
     weeks_since_steward_list = []
     df_date = df["steward_since"]
     for i in df_date:
@@ -358,7 +366,13 @@ def preprocess():
 
     r_1 = requests.get("https://gtcselenium.herokuapp.com/?a=" + df["address"][0])
 
-    if type(r_1.json()["Total_participation_rate"].strip("%")) != float:
+    some_lovely_value = 0
+    try:
+        some_lovely_value = r_1.json()["Total_participation_rate"].strip("%")
+    except:
+        some_lovely_value = 0
+
+    if type(some_lovely_value) != float:
         # print("This works")
         tally_paricipation_rate = df["Tally_participation_rate"]
         # print(tally_paricipation_rate)
@@ -406,7 +420,16 @@ def preprocess():
             "Api-Username": os.environ.get("DISCOURSE_API_USERNAME"),
         },
     )
-    if s_1.json()["user"]["post_count"] == df["forum_post_count_base"][0]:
+    #print(s_1.json())
+    #print(50*'-')
+    #print(s_1.json()['topics'][0]['posts_count'])
+    left_compare = 0
+    try:
+        #left_compare = s_1.json()["user"]["post_count"]
+        left_compare = s_1.json()['topics'][0]['posts_count']
+    except:
+        pass
+    if left_compare == df["forum_post_count_base"][0]:
         forum_post_count_list = list(df["forum_post_count_base"])
         # print(forum_post_count_list)
     else:
@@ -420,8 +443,11 @@ def preprocess():
                     "Api-Username": os.environ.get("DISCOURSE_API_USERNAME"),
                 },
             )
-            # print(s.json())
-            forum_post_count_list.append(s.json()["user"]["post_count"])
+            #forum_post_count_list.append(s.json()["user"]["post_count"])
+            try:
+                forum_post_count_list.append(s.json()['topics'][0]['posts_count'])
+            except:
+                forum_post_count_list.append(0)
             # print(forum_post_count_list)
             time.sleep(1)
         df["forum_post_count"] = pd.DataFrame(forum_post_count_list)
