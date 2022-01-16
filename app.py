@@ -1,4 +1,3 @@
-from asyncio import exceptions
 import json
 import math
 import requests
