@@ -1,3 +1,4 @@
+from asyncio import exceptions
 import json
 import math
 import requests
@@ -25,12 +26,11 @@ def get_voters(tup_arg):
 def tally(address):
     while True:
         try:
-            # print(address)
             r = requests.get(f"https://gtcselenium.herokuapp.com/?a={address}")
-            # print(r.json()['Total_participation_rate'])
             return float(r.json()["Total_participation_rate"].strip("%"))
 
-        except:
+        except Exception as e:
+            print(e)
             continue
 
 app = Flask(__name__, static_folder="assets")
@@ -159,7 +159,7 @@ def preprocess():
         if str(i) == "nan":
             a1 = "-"
             l1.append(a1)
-            # print('Replace this!')
+            print('Replace this!')
         elif str(i) == "MMM":
             l1.append("Merch, Memes, Marketing")
         elif str(i) == "PGF":
@@ -172,7 +172,7 @@ def preprocess():
             l1.append("Fraud Detection & Defense")
 
     df_workstream = pd.DataFrame(l1, columns=["workstream"])
-    # print('The workstreams are: ',df_workstream['workstream'])
+    print('The workstreams are: ',df_workstream['workstream'])
     df3 = df3.drop("workstream_short", 1)
     df4 = pd.concat([df3, df_workstream], axis=1)
 
@@ -203,8 +203,8 @@ def preprocess():
     post_count_value = 0
     try:
         post_count_value = int(post_count_1.json()["user"]["post_count"])
-    except:
-        pass
+    except Exception as e:
+        print(e)
     f_value_1 = post_count_value / week_since_steward_1
     if round(float(f_value_1), 2) == round(float(df["f_value"][0]), 2):
         f_value_list = list(df["f_value"])
@@ -219,13 +219,12 @@ def preprocess():
                     "Api-Username": os.environ.get("DISCOURSE_API_USERNAME"),
                 },
             )
-            #f_value_list.append(int(s.json()["user"]["post_count"]))
-            #print(s.json()["topics"][0]["posts_count"])
             try:
                 posts_count_value = int(s.json()["user"]["post_count"])
-            except:
-                pass
+            except Exception as e:
+                print(e)
             f_value_list.append(posts_count_value)
+
     weeks_since_steward_list = []
     df_date = df["steward_since"]
     for i in df_date:
@@ -251,7 +250,7 @@ def preprocess():
             f_value_final.append(i)
         else:
             f_value_final.append(1.5)
-    # print("f_values are:",f_value_final)
+    print("f_values are:",f_value_final)
 
     # v_values
 
@@ -290,7 +289,8 @@ def preprocess():
     url = "https://hub.snapshot.org/graphql?"
     r1 = requests.post(url, json={"query": query_proposal_closed})
     # print(r1.json()['data']['proposals'][0]['id'])
-    # print(len(r1.json()['data']['proposals']))
+    print('proposals')
+    print(len(r1.json()['data']['proposals']))
 
     # Proposal ID
     p_id_list = []
@@ -336,7 +336,7 @@ def preprocess():
             else:
                 voter_presence[voter] = 1
 
-    # print(voter_presence)
+    print(voter_presence)
 
     csv_voter_presence = dict()
 
@@ -361,8 +361,8 @@ def preprocess():
 
     # tally_api_percentage_list = []
 
-    # address_1 = tally(df['address'][0])
-    # print('This is address 1:',address_1)
+    #address_1 = tally(df['address'][0])
+    #print('This is address 1:', address_1)
 
     r_1 = requests.get("https://gtcselenium.herokuapp.com/?a=" + df["address"][0])
 
@@ -409,7 +409,7 @@ def preprocess():
             health_score_final.append(10)
 
     df5 = pd.DataFrame(health_score_final, columns=["Health Score"])
-    # print("Health Score is:",df5["Health Score"])
+    print("Health Score is:",df5["Health Score"])
     df6 = pd.concat([df4, df5], axis=1)
     # print('This is df6:',df6)
     # Forum Post Count
@@ -422,13 +422,11 @@ def preprocess():
     )
     #print(s_1.json())
     #print(50*'-')
-    #print(s_1.json()['topics'][0]['posts_count'])
     left_compare = 0
     try:
-        #left_compare = s_1.json()["user"]["post_count"]
-        left_compare = s_1.json()['topics'][0]['posts_count']
-    except:
-        pass
+        left_compare = s_1.json()["user"]["post_count"]
+    except Exception as e:
+        print(e)
     if left_compare == df["forum_post_count_base"][0]:
         forum_post_count_list = list(df["forum_post_count_base"])
         # print(forum_post_count_list)
@@ -443,17 +441,17 @@ def preprocess():
                     "Api-Username": os.environ.get("DISCOURSE_API_USERNAME"),
                 },
             )
-            #forum_post_count_list.append(s.json()["user"]["post_count"])
             try:
-                forum_post_count_list.append(s.json()['topics'][0]['posts_count'])
-            except:
+                forum_post_count_list.append(s.json()["user"]["post_count"])
+            except Exception as e:
+                print(e)
                 forum_post_count_list.append(0)
-            # print(forum_post_count_list)
+            print(f'forum posts : {forum_post_count_list}')
             time.sleep(1)
         df["forum_post_count"] = pd.DataFrame(forum_post_count_list)
         df.to_csv("stewards.csv", index=False)
     df7 = pd.DataFrame(forum_post_count_list, columns=["forum_post_count"])
-    # print("forum_post_count is:",df7["forum_post_count"])
+    print("forum_post_count is:",df7["forum_post_count"])
     df8 = pd.concat([df6, df7], axis=1)
 
     df8["json"] = df8.to_json(orient="records", lines=True).splitlines()
@@ -461,6 +459,7 @@ def preprocess():
         res = json.loads(df8["json"][i])
         json_list.append(res)
     # print(json_list[0])
+    print('preprocess done')
     return json_list
 
 
