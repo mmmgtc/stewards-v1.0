@@ -98,18 +98,18 @@
               </select>
             </div>
           </div>
-          <button type="submit" class="btn">Apply</button>
+          <button type="submit" class="btn"> Apply </button>
         </form>
       </div>
     </section>
 
     <!-- stewards -->
     <section class="grid">
-      {% for steward in stewards %}
+      {% for i, steward in stewards.iterrows() %}
       <div id="card" class="card" data-tags="">
         <!-- head -->
         <div class="head">
-          <p class="steward_address" hidden>{{ steward["address"] }}</p>
+          <p class="steward_address" hidden>{{ steward.address }}</p>
           <figure>
             <img
               id="image"
@@ -189,7 +189,7 @@
             <div class="value truncate">
               <a id="workstream_url" href="#" target="_blank"
                 ><span id="workstream_name" class="workstream_name"
-                  >{{ steward["workstream"] }}</span
+                  >{{ steward[6] }}</span
                 ></a
               >
             </div>
