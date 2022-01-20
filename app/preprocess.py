@@ -62,7 +62,8 @@ def gitcoin_posts(username):
         s = requests.get(
             f"https://gov.gitcoin.co/u/{username}.json",
             headers={
-                "Api-key": "7cdc9c114d516ecaa8181485fa16cfddcb058221e9f93af26f04825a82db6214",
+            "Api-key": os.environ.get("DISCOURSE_API_KEY"),
+            "Api-Username": os.environ.get("DISCOURSE_API_USERNAME"),
             },
         )
         return int(s.json()["user"]["post_count"])
