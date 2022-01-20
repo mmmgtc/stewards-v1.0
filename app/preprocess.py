@@ -2,111 +2,45 @@ import os
 import requests
 import pandas as pd
 import json
-import math
 
 graph_tally = "https://api.thegraph.com/subgraphs/name/withtally/protocol-gitcoin-bravo-v2"
-
-headers = {"Content-Type": "application/json"}
 
 CRLF = "\\r\\n"
 
 def request_init_data(address):
+    
+    payload = (
+        '{"query":"query ($voterAddress: String!) {'
+        + CRLF
+        + "  account(id: $voterAddress) {"
+        + CRLF
+        + "    id"
+        + CRLF
+        + "    ballotsCastCount"
+        + CRLF
+        + "    percentageOfTotalVotingPower"
+        + CRLF
+        + "    frequencyOfParticipationTotal"
+        + CRLF
+        + "  }"
+        + CRLF
+        + '}","variables":{"voterAddress":"'
+        + address
+        + '"}}'
+    )
 
-    url = f"https://api.boardroom.info/v1/voters/{address}"
+    response = requests.request("POST", graph_tally, data=payload)
 
-    response_boardroom_voters = requests.get(url).json()
+    res = json.loads(response.text)
 
-    if list(response_boardroom_voters.keys())[0] == "message":
-
-        payload = (
-            '{"query":"query ($voterAddress: String!) {'
-            + CRLF
-            + "  histories {"
-            + CRLF
-            + "    totalSupply"
-            + CRLF
-            + "  },"
-            + CRLF
-            + "  account(id: $voterAddress) {"
-            + CRLF
-            + "    id"
-            + CRLF
-            + "    votes"
-            + CRLF
-            + "    tokenBalance"
-            + CRLF
-            + "    ballotsCastCount"
-            + CRLF
-            + "    proposalsProposedCount"
-            + CRLF
-            + "    percentageOfTotalVotingPower"
-            + CRLF
-            + "    frequencyOfParticipationTotal"
-            + CRLF
-            + "    delegationsCurrentlyReceivedCount"
-            + CRLF
-            + "    frequencyOfParticipationAsActiveVoter"
-            + CRLF
-            + "  }"
-            + CRLF
-            + "  delegators: accounts(orderBy: tokenBalance, orderDirection: desc, where: {delegatingTo: $voterAddress}){"
-            + CRLF
-            + "    id"
-            + CRLF
-            + "    votes"
-            + CRLF
-            + "    tokenBalance"
-            + CRLF
-            + "    ballotsCastCount"
-            + CRLF
-            + "    proposalsProposedCount"
-            + CRLF
-            + "    percentageOfTotalVotingPower"
-            + CRLF
-            + "    frequencyOfParticipationTotal"
-            + CRLF
-            + "    delegationsCurrentlyReceivedCount"
-            + CRLF
-            + "    frequencyOfParticipationAsActiveVoter"
-            + CRLF
-            + "  }"
-            + CRLF
-            + '}","variables":{"voterAddress":"'
-            + address
-            + '"}}'
-        )
-
-        response = requests.request("POST", graph_tally, headers=headers, data=payload)
-
-        res = json.loads(response.text)
-
-        if res["data"]["account"] == None:
-            return "NA"
-
-        else:
-            power = "{:.2f}".format(
-                float(res["data"]["account"]["percentageOfTotalVotingPower"])
-            )
-            return power
+    if res["data"]["account"] == None:
+        return 0.00, 0.00
 
     else:
-        power = "{:.2f}".format(
-            (float(response_boardroom_voters["data"]["protocols"][0]["lastCastPower"]) / 100000000)
-            * 100
-        )
-        return power
+        voting_power = round(float(res["data"]["account"]["percentageOfTotalVotingPower"]), 2)
+        voting_participation = round(float(res["data"]["account"]["frequencyOfParticipationTotal"])*100, 2)
+        return voting_power, voting_participation
 
-def request_second_data(address, totalVotes):
-
-    url = f"https://api.boardroom.info/v1/voters/{address}"
-    
-    r = requests.get(url)
-    try:
-        userVotesCast = r.json()["data"]["protocols"][0]["totalVotesCast"]
-    except Exception as e:
-        userVotesCast = 0
-        print(e)
-    return math.ceil((userVotesCast / totalVotes) * 100)
 
 def workstream_cleaning(i):
     if str(i) == "MMM":
@@ -122,6 +56,7 @@ def workstream_cleaning(i):
     else:
         return "-"
 
+
 def gitcoin_score(username):
     s = requests.get(
         f"https://gov.gitcoin.co/u/{username}.json",
@@ -132,18 +67,13 @@ def gitcoin_score(username):
     )
     return int(s.json()["user"]["post_count"])
 
+
 def preprocess():
     #if: save file and load the last version
-    stewards_data = pd.read_csv("stewards.csv")
+    stewards_data = pd.read_csv("app/assets/csv/stewards.csv")
+
     stewards_data.workstream_short = stewards_data.workstream_short.apply(workstream_cleaning)
-    stewards_data["votingweight"] = stewards_data.address.apply(lambda x: request_init_data(x))
 
-    #stewards_data["f_value"] = stewards_data["username"].apply(gitcoin_score)
-
-    w = requests.get("https://api.boardroom.info/v1/protocols/gitcoin")
-
-    totalVotes = w.json()["data"]["totalProposals"]
-
-    stewards_data["voteparticipation"] = stewards_data.address.apply(lambda x: request_second_data(x, totalVotes))
+    stewards_data["votingweight"], stewards_data["voteparticipation"] = zip(*stewards_data.address.map(request_init_data))
 
     return stewards_data
