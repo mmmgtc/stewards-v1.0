@@ -9,6 +9,6 @@ initial_list = preprocess()
 @app.route("/", methods=["GET", "POST"])
 def index():
 
-    #Workstream_name = request.args.get('name')
-
+    #workstream_name = request.args.get('workstream_name')
+    
     return render_template("index.html", stewards=initial_list)

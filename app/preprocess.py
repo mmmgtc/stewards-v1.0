@@ -58,13 +58,16 @@ def workstream_cleaning(i):
 
 
 def gitcoin_posts(username):
-    s = requests.get(
-        f"https://gov.gitcoin.co/u/{username}.json",
-        headers={
-            "Api-key": "7cdc9c114d516ecaa8181485fa16cfddcb058221e9f93af26f04825a82db6214",
-        },
-    )
-    return int(s.json()["user"]["post_count"])
+    try:
+        s = requests.get(
+            f"https://gov.gitcoin.co/u/{username}.json",
+            headers={
+                "Api-key": "7cdc9c114d516ecaa8181485fa16cfddcb058221e9f93af26f04825a82db6214",
+            },
+        )
+        return int(s.json()["user"]["post_count"])
+    except Exception as e:
+        return 0
 
 def transform_ten(x, max_value, min_value):
     return int(((x-min_value)/(max_value-min_value))*10)
@@ -74,7 +77,9 @@ def preprocess():
     # if no updates load the latest version immediately
     stewards_data = pd.read_csv("app/assets/csv/stewards.csv")
 
-    stewards_data.workstream_short = stewards_data.workstream_short.apply(workstream_cleaning)
+    stewards_data['workstream_name'] = stewards_data.workstream_short.apply(workstream_cleaning)
+
+    stewards_data["forum_post_count"] = stewards_data.username.apply(gitcoin_posts)
 
     stewards_data["votingweight"], stewards_data["voteparticipation"] = zip(*stewards_data.address.map(request_init_data))
 
