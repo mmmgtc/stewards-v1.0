@@ -98,14 +98,13 @@
               </select>
             </div>
           </div>
-          <button type="submit" class="btn">Apply</button>
         </form>
       </div>
     </section>
 
     <!-- stewards -->
     <section class="grid">
-      {% for steward in stewards %}
+      {% for i, steward in stewards.iterrows() %}
       <div id="card" class="card" data-tags="">
         <!-- head -->
         <div class="head">
@@ -131,10 +130,10 @@
             </div>
           </div>
           <div class="health">
-            <h2>{{ steward["Health Score"] }}/10</h2>
+            <h2>{{ steward["Health_Score"] }}/10</h2>
             <img
               id="health"
-              src='../assets/images/health_{{ steward["Health Score"] }}.svg'
+              src='../assets/images/health_{{ steward["Health_Score"] }}.svg'
             />
           </div>
         </div>
@@ -189,7 +188,7 @@
             <div class="value truncate">
               <a id="workstream_url" href="#" target="_blank"
                 ><span id="workstream_name" class="workstream_name"
-                  >{{ steward["workstream"] }}</span
+                  >{{ steward['workstream_name'] }}</span
                 ></a
               >
             </div>
