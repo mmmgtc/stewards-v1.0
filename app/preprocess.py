@@ -3,12 +3,12 @@ import requests
 import pandas as pd
 import json
 
-graph_tally = "https://api.thegraph.com/subgraphs/name/withtally/protocol-gitcoin-bravo-v2"
-
-CRLF = "\\r\\n"
 
 def request_init_data(address):
-    
+
+    graph_tally = "https://api.thegraph.com/subgraphs/name/withtally/protocol-gitcoin-bravo-v2"
+    CRLF = "\\r\\n"
+
     payload = (
         '{"query":"query ($voterAddress: String!) {'
         + CRLF
@@ -37,8 +37,8 @@ def request_init_data(address):
         return 0.00, 0.00
 
     else:
-        voting_power = round(float(res["data"]["account"]["percentageOfTotalVotingPower"]), 2)
-        voting_participation = round(float(res["data"]["account"]["frequencyOfParticipationTotal"])*100, 2)
+        voting_power = float(res["data"]["account"]["percentageOfTotalVotingPower"])
+        voting_participation = float(res["data"]["account"]["frequencyOfParticipationTotal"])*100
         return voting_power, voting_participation
 
 
@@ -57,23 +57,35 @@ def workstream_cleaning(i):
         return "-"
 
 
-def gitcoin_score(username):
+def gitcoin_posts(username):
     s = requests.get(
         f"https://gov.gitcoin.co/u/{username}.json",
         headers={
-            "Api-key": os.environ.get("DISCOURSE_API_KEY"),
-            "Api-Username": os.environ.get("DISCOURSE_API_USERNAME"),
+            "Api-key": "7cdc9c114d516ecaa8181485fa16cfddcb058221e9f93af26f04825a82db6214",
         },
     )
     return int(s.json()["user"]["post_count"])
 
+def transform_ten(x, max_value, min_value):
+    return int(((x-min_value)/(max_value-min_value))*10)
 
 def preprocess():
-    #if: save file and load the last version
+    # to do
+    # if no updates load the latest version immediately
     stewards_data = pd.read_csv("app/assets/csv/stewards.csv")
 
     stewards_data.workstream_short = stewards_data.workstream_short.apply(workstream_cleaning)
 
     stewards_data["votingweight"], stewards_data["voteparticipation"] = zip(*stewards_data.address.map(request_init_data))
 
+    stewards_data['days_steward'] = (pd.to_datetime("now")-stewards_data['steward_since'].apply(pd.to_datetime)).dt.days
+    
+    stewards_data['health'] = stewards_data.voteparticipation / stewards_data.days_steward
+
+    stewards_data["Health_Score"] = stewards_data['health'].apply(lambda x: transform_ten(x, stewards_data['health'].max(), stewards_data['health'].min()))
+
+    #format to 2 decimals
+    stewards_data.votingweight = stewards_data.votingweight.apply(lambda x: format(x, ".2f"))
+    stewards_data.voteparticipation = stewards_data.voteparticipation.apply(lambda x: format(x, ".2f"))
+    
     return stewards_data
