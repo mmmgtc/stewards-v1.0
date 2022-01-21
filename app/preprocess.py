@@ -2,7 +2,7 @@ import os
 import requests
 import pandas as pd
 import json
-
+import time
 
 def request_init_data(address):
 
@@ -58,17 +58,26 @@ def workstream_cleaning(i):
 
 
 def gitcoin_posts(username):
-    try:
-        s = requests.get(
-            f"https://gov.gitcoin.co/u/{username}.json",
-            headers={
-            "Api-key": os.environ.get("DISCOURSE_API_KEY"),
-            "Api-Username": os.environ.get("DISCOURSE_API_USERNAME"),
-            },
-        )
-        return int(s.json()["user"]["post_count"])
-    except Exception as e:
-        return 0
+    for i in range(3):
+        try:
+            s = requests.get(
+                f"https://gov.gitcoin.co/u/{username}.json",
+                headers={
+                "Api-key": os.environ.get("DISCOURSE_API_KEY"),
+                "Api-Username": os.environ.get("DISCOURSE_API_USERNAME"),
+                },
+            )
+            return int(s.json()["user"]["post_count"])
+        except Exception as e:
+            time.sleep(3)
+            continue
+    return 0
+
+
+def get_F_value(df):
+    df['F_value'] = 1.75 * df['forum_post_count'] / df['weeks_steward']
+    df['F_value'] = df['F_value'].apply(lambda x: 1.5 if x>1.5 else x)
+    return df
 
 def transform_ten(x, max_value, min_value):
     return int(((x-min_value)/(max_value-min_value))*10)
@@ -86,9 +95,9 @@ def preprocess():
 
     stewards_data['days_steward'] = (pd.to_datetime("now")-stewards_data['steward_since'].apply(pd.to_datetime)).dt.days
     
-    stewards_data['health'] = stewards_data.voteparticipation / stewards_data.days_steward
+    stewards_data = get_F_value(stewards_data)
 
-    stewards_data["Health_Score"] = stewards_data['health'].apply(lambda x: transform_ten(x, stewards_data['health'].max(), stewards_data['health'].min()))
+    stewards_data["Health_Score"] = stewards_data['health'].apply(lambda x: transform_ten(x, stewards_data['F_value'].max(), stewards_data['F_value'].min()))
 
     #format to 2 decimals
     stewards_data.votingweight = stewards_data.votingweight.apply(lambda x: format(x, ".2f"))
