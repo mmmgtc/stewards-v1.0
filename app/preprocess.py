@@ -42,21 +42,6 @@ def request_init_data(address):
         return voting_power, voting_participation
 
 
-def workstream_cleaning(i):
-    if str(i) == "MMM":
-        return "Merch, Memes, Marketing"
-    elif str(i) == "PGF":
-        return "Public Goods Funding"
-    elif str(i) == "MC":
-        return "Moonshot Collective"
-    elif str(i) == "DG":
-        return "Decentralize Gitcoin"
-    elif str(i)=="FDD":
-        return "Fraud Detection & Defense"
-    else:
-        return "-"
-
-
 def gitcoin_posts(username):
     for i in range(3):
         try:
@@ -82,25 +67,30 @@ def get_F_value(df):
 def transform_ten(x, max_value, min_value):
     return int(((x-min_value)/(max_value-min_value))*10)
 
-def preprocess():
+def preprocess(mode='fast'):
     # to do
     # if no updates load the latest version immediately
+
     stewards_data = pd.read_csv("app/assets/csv/stewards.csv")
 
-    stewards_data['workstream_name'] = stewards_data.workstream_short.apply(workstream_cleaning)
-
-    stewards_data["forum_post_count"] = stewards_data.username.apply(gitcoin_posts)
-
-    stewards_data["votingweight"], stewards_data["voteparticipation"] = zip(*stewards_data.address.map(request_init_data))
-
-    stewards_data['days_steward'] = (pd.to_datetime("now")-stewards_data['steward_since'].apply(pd.to_datetime)).dt.days
+    if mode == 'fast':
+            
+        return stewards_data
     
-    stewards_data = get_F_value(stewards_data)
+    else:
+        
+        #stewards_data["forum_post_count"] = stewards_data.username.apply(gitcoin_posts)
 
-    stewards_data["Health_Score"] = stewards_data['health'].apply(lambda x: transform_ten(x, stewards_data['F_value'].max(), stewards_data['F_value'].min()))
+        stewards_data["votingweight"], stewards_data["voteparticipation"] = zip(*stewards_data.address.map(request_init_data))
 
-    #format to 2 decimals
-    stewards_data.votingweight = stewards_data.votingweight.apply(lambda x: format(x, ".2f"))
-    stewards_data.voteparticipation = stewards_data.voteparticipation.apply(lambda x: format(x, ".2f"))
-    
-    return stewards_data
+        stewards_data['weeks_steward'] = round( ( pd.to_datetime("now")-stewards_data['steward_since'].apply(pd.to_datetime)).dt.days / 7 )
+
+        #stewards_data = get_F_value(stewards_data)
+
+        #stewards_data["Health_Score"] = stewards_data['health'].apply(lambda x: transform_ten(x, stewards_data['F_value'].max(), stewards_data['F_value'].min()))
+
+        #format to 2 decimals
+        stewards_data.votingweight = stewards_data.votingweight.apply(lambda x: format(x, ".2f"))
+        stewards_data.voteparticipation = stewards_data.voteparticipation.apply(lambda x: format(x, ".2f"))
+        stewards_data.to_csv("app/assets/csv/stewards.csv",  index=False)
+        return stewards_data
