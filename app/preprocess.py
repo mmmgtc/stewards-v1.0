@@ -1,5 +1,4 @@
 import os
-from turtle import st
 import requests
 import pandas as pd
 import json
