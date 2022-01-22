@@ -4,4 +4,5 @@ app = Flask(__name__, static_folder="assets")
 
 from app import routes
 
-app.run(threaded=True, debug=True)
+if __name__ == '__main__':
+    app.run(threaded=True, debug=True)
