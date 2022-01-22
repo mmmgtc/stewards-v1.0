@@ -81,7 +81,7 @@ def get_snapshot(df):
     return df
 
 def transform_ten(x, max_value, min_value):
-    return int(((x-min_value)/(max_value-min_value))*10)
+    return int(((x-min_value)/(max_value-min_value))*5+5)
 
 def preprocess():
     cols = ['name', 'image', 'username', 'handle_gitcoin', 'statement_post_id',
