@@ -92,6 +92,8 @@ def preprocess():
 
     proposals_data = get_proposals()
 
+    stewards_data["Health_Score"] = stewards_data['Health_Score'].apply(lambda x: transform_ten(x, stewards_data['Health_Score'].max(), stewards_data['Health_Score'].min())).astype(int)
+    
     if len(proposals_data)==40:
         stewards_data.votingweight = stewards_data.votingweight.apply(lambda x: format(x, ".2f"))
         stewards_data.voteparticipation = stewards_data.voteparticipation.apply(lambda x: format(x, ".2f"))
