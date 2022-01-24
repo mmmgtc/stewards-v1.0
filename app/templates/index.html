@@ -80,7 +80,7 @@
 
       <div class="input-wrapper">
         <label for="Values">Order by</label>
-        <select name="Values" id="dropdown">
+        <select name="Values" id="order_by">
           <option value="name">Name</option>
           <option value="date">Date</option>
           <option value="statement_post_id">Forum Posts</option>
@@ -92,7 +92,7 @@
 
       <div class="input-wrapper">
         <label for="Order">Display</label>
-        <select name="Order" id="dropdown">
+        <select name="Order" id="direction">
           <option value="True">Ascending</option>
           <option value="False">Descending</option>
         </select>
@@ -127,7 +127,7 @@
             </div>
           </div>
           <div class="health">
-            <h2>{{ steward["Health_Score"] }}/10</h2>
+            <h2 class="health_score">{{ steward["Health_Score"] }}/10</h2>
             <img
               id="health"
               src='../assets/images/health_{{ steward["Health_Score"] }}.svg'
@@ -152,7 +152,9 @@
               >
             </div>
             <div class="value truncate">
-              <span id="steward_since">{{ steward["steward_since"] }}</span>
+              <span id="steward_since" class="steward_since"
+                >{{ steward["steward_since"] }}</span
+              >
             </div>
           </div>
 
@@ -170,7 +172,9 @@
               >
             </div>
             <div class="value truncate">
-              <span id="forum_post">{{ steward["forum_post_count"] }}</span>
+              <span id="forum_post" class="forum_post"
+                >{{ steward["forum_post_count"] }}</span
+              >
             </div>
           </div>
 
@@ -205,7 +209,7 @@
               >
             </div>
             <div class="value truncate">
-              <span id="votingweight" class="percentage"
+              <span id="votingweight" class="weight percentage"
                 >{{ steward["votingweight"] }}</span
               >
             </div>
@@ -222,7 +226,7 @@
               >
             </div>
             <div class="value truncate">
-              <span id="participation_snapshot" class="percentage"
+              <span id="participation_snapshot" class="participation percentage"
                 >{{ steward["voteparticipation"] }}</span
               >
             </div>

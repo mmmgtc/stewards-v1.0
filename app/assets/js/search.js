@@ -2,6 +2,11 @@ let searchParams = new URLSearchParams(window.location.search);
 let search = searchParams.toString().split("=")[1];
 const searchInput = document.getElementById("search");
 
+const orderBy = document.getElementById("order_by");
+const direction = document.getElementById("direction");
+
+let stewards = document.getElementsByClassName("card");
+
 if (!!search) {
   searchInput.value = search;
   filterStewards(search);
@@ -34,17 +39,12 @@ searchInput.addEventListener("keyup", function (event) {
 });
 
 function filterStewards(value) {
-  let stewards = document.getElementsByClassName("card");
-
   for (i = 0; i < stewards.length; i++) {
-    const name =
-      stewards[i].getElementsByClassName("name truncate")[0].innerHTML;
+    const name = getInnerHtml(stewards[i], "name truncate");
 
-    const address =
-      stewards[i].getElementsByClassName("steward_address")[0].innerHTML;
+    const address = getInnerHtml(stewards[i], "steward_address");
 
-    const workStream =
-      stewards[i].getElementsByClassName("workstream_name")[0].innerHTML;
+    const workStream = getInnerHtml(stewards[i], "workstream_name");
 
     const searchParams = [name, address, workStream].join(" ").toLowerCase();
 
@@ -56,31 +56,72 @@ function filterStewards(value) {
   }
 }
 
-// function orderStewards() {
-//   orderby = document.getElementById("orderby").value;
-//   direction = document.getElementById("direction").value;
-//   // console.log(orderby, direction)
+orderBy.addEventListener("change", function (event) {
+  const type = event.target.value;
 
-//   if (orderby == "health") {
-//     window.stewards.sort((a, b) => (a.health < b.health ? 1 : -1));
-//   }
+  let stewardsArray = nodeListToArray(stewards);
+  let sortedStewardsArray = [];
 
-//   if (orderby == "weight") {
-//     window.stewards.sort((a, b) => (a.votingweight < b.votingweight ? 1 : -1));
-//   }
+  if (type === "name") {
+    sortedStewardsArray = sortArray(stewardsArray, "name truncate");
+  }
 
-//   if (orderby == "participation") {
-//     window.stewards.sort((a, b) =>
-//       a.participation_snapshot < b.participation_snapshot ? 1 : -1
-//     );
-//   }
+  if (type === "date") {
+    sortedStewardsArray = sortArray(stewardsArray, "steward_since");
+  }
 
-//   if (orderby == "posts") {
-//     window.stewards.sort((a, b) => (a.posts < b.posts ? 1 : -1));
-//   }
+  if (type == "posts") {
+    sortedStewardsArray = sortArray(stewardsArray, "forum_post");
+  }
 
-//   // ascending - from low to high
-//   if (direction == "ascending") {
-//     window.stewards.reverse();
-//   }
-// }
+  if (type == "participation") {
+    sortedStewardsArray = sortArray(stewardsArray, "participation percentage");
+  }
+
+  if (type == "weight") {
+    sortedStewardsArray = sortArray(stewardsArray, "weight percentage");
+  }
+
+  if (type == "health") {
+    sortedStewardsArray = sortArray(stewardsArray, "health_score");
+  }
+
+  stewards = joinArryToHtml(sortedStewardsArray);
+});
+
+direction.addEventListener("change", function (event) {
+  const order = event.target.value;
+
+  let stewardsArray = nodeListToArray(stewards);
+  let sortedStewardsArray = [];
+
+  if (order == "descending") {
+    stewardsArray.reverse();
+  }
+
+  return joinArryToHtml(sortedStewardsArray);
+});
+
+function nodeListToArray(nodes) {
+  return [].slice.call(nodes);
+}
+
+function joinArryToHtml(array) {
+  let html = "";
+
+  array.forEach((element) => {
+    html += element;
+  });
+
+  return html;
+}
+
+function getInnerHtml(element, className) {
+  return element.getElementsByClassName(className)[0].innerHTML;
+}
+
+function sortArray(array, key) {
+  return array.sort((a, b) => {
+    return getInnerHtml(a, key) < getInnerHtml(b, key) ? 1 : -1;
+  });
+}
