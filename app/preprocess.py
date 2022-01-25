@@ -47,17 +47,15 @@ def request_init_data(address):
     return voting_power, voting_participation
 
 def gitcoin_posts(username):
-    print(username)
+    #print(username)
     for i in range(15):
-        print(i)
+        #print(i)
         try:
             s = requests.get(
                 f"https://gov.gitcoin.co/u/{username}.json",
                 headers={
-                #"Api-key": os.environ.get("DISCOURSE_API_KEY"),
-                #"Api-Username": os.environ.get("DISCOURSE_API_USERNAME"),
-                "Api-key": "7cdc9c114d516ecaa8181485fa16cfddcb058221e9f93af26f04825a82db6214",
-                "Api-Username": "system",
+                "Api-key": os.environ.get("DISCOURSE_API_KEY"),
+                "Api-Username": os.environ.get("DISCOURSE_API_USERNAME"),
                 },
             )
             return int(s.json()["user"]["post_count"])
@@ -131,7 +129,6 @@ def preprocess():
         stewards_data.to_csv("app/assets/csv/stewards.csv",  index=False)
         #print('data saved')
 
-        #class_proposals = proposals()
-        #class_proposals.change(length_proposals)
+        class_prop.change(length_proposals)
         #print(class_proposals.number)
         return stewards_data
