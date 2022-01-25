@@ -5,6 +5,9 @@ import json
 import time
 
 from app.helpers.helpers import get_last_proposals, get_proposals
+from app.helpers.proposals import proposals
+
+class_prop = proposals()
 
 def request_init_data(address):
 
@@ -44,13 +47,17 @@ def request_init_data(address):
     return voting_power, voting_participation
 
 def gitcoin_posts(username):
-    for i in range(10):
+    print(username)
+    for i in range(15):
+        print(i)
         try:
             s = requests.get(
                 f"https://gov.gitcoin.co/u/{username}.json",
                 headers={
-                "Api-key": os.environ.get("DISCOURSE_API_KEY"),
-                "Api-Username": os.environ.get("DISCOURSE_API_USERNAME"),
+                #"Api-key": os.environ.get("DISCOURSE_API_KEY"),
+                #"Api-Username": os.environ.get("DISCOURSE_API_USERNAME"),
+                "Api-key": "7cdc9c114d516ecaa8181485fa16cfddcb058221e9f93af26f04825a82db6214",
+                "Api-Username": "system",
                 },
             )
             return int(s.json()["user"]["post_count"])
@@ -65,7 +72,7 @@ def get_F_value(df):
     df['F_value'] = df['F_value'].apply(lambda x: 1.5 if x>1.5 else x)
     return df
 
-def get_snapshot(df):
+def get_snapshot(df, number_proposals):
     
     values_snapshot = dict()
     number_of_votes = get_last_proposals()
@@ -76,7 +83,7 @@ def get_snapshot(df):
         else:
             values_snapshot[number_of_votes[x]['voter'].lower()]  = 1
     
-    df['snapshot_votes'] = df.address.apply(lambda x: x.lower()).map(values_snapshot) /100 / 40 
+    df['snapshot_votes'] = df.address.apply(lambda x: x.lower()).map(values_snapshot) /100 / number_proposals
     df['snapshot_votes'] = df['snapshot_votes'].fillna(0)
     return df
 
@@ -91,11 +98,12 @@ def preprocess():
     stewards_data = pd.read_csv("app/assets/csv/stewards.csv", usecols=cols)
 
     proposals_data = get_proposals()
+    length_proposals = len(proposals_data)
 
-    if len(proposals_data)==40:
+    if length_proposals==class_prop.number:
 
-        stewards_data.votingweight = "N/A"
-        stewards_data.voteparticipation = "N/A"
+        stewards_data.votingweight = "-"
+        stewards_data.voteparticipation = "-"
         #stewards_data.votingweight = stewards_data.votingweight.apply(lambda x: format(x, ".2f"))
         #stewards_data.voteparticipation = stewards_data.voteparticipation.apply(lambda x: format(x, ".2f"))
         return stewards_data
@@ -109,16 +117,21 @@ def preprocess():
         stewards_data['weeks_steward'] = round( ( pd.to_datetime("now")-stewards_data['steward_since'].apply(pd.to_datetime)).dt.days / 7 )
 
         stewards_data = get_F_value(stewards_data)
-        stewards_data = get_snapshot(stewards_data)
+        stewards_data = get_snapshot(stewards_data, length_proposals)
 
         stewards_data["V_value"] = (2.2*stewards_data["snapshot_votes"]+1.5*(stewards_data['voteparticipation']))/2
         stewards_data["Health_Score"] = stewards_data['F_value'] * stewards_data['V_value'] + stewards_data['w_value']
         stewards_data["Health_Score"] = stewards_data['Health_Score'].apply(lambda x: transform_ten(x, stewards_data['Health_Score'].max(), stewards_data['Health_Score'].min())).astype(int)
         #format to 2 decimals
 
-        stewards_data.votingweight = "N/A"
-        stewards_data.voteparticipation = "N/A"
-        stewards_data.votingweight = stewards_data.votingweight.apply(lambda x: format(x, ".2f"))
-        stewards_data.voteparticipation = stewards_data.voteparticipation.apply(lambda x: format(x*100, ".2f"))
+        stewards_data.votingweight = "-"
+        stewards_data.voteparticipation = "-"
+        #stewards_data.votingweight = stewards_data.votingweight.apply(lambda x: format(x, ".2f"))
+        #stewards_data.voteparticipation = stewards_data.voteparticipation.apply(lambda x: format(x*100, ".2f"))
         stewards_data.to_csv("app/assets/csv/stewards.csv",  index=False)
+        #print('data saved')
+
+        #class_proposals = proposals()
+        #class_proposals.change(length_proposals)
+        #print(class_proposals.number)
         return stewards_data
