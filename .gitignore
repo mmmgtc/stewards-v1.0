@@ -3,5 +3,6 @@ config.codekit3
 .venv
 .project
 .env
-/app/__pycache__
-/__pycache__
+app/__pycache__
+__pycache__
+app/helpers/__pycache__
