@@ -92,13 +92,14 @@ def preprocess():
 
     proposals_data = get_proposals()
 
-    stewards_data["Health_Score"] = stewards_data['Health_Score'].apply(lambda x: transform_ten(x, stewards_data['Health_Score'].max(), stewards_data['Health_Score'].min())).astype(int)
-    
     if len(proposals_data)==40:
-        stewards_data.votingweight = stewards_data.votingweight.apply(lambda x: format(x, ".2f"))
-        stewards_data.voteparticipation = stewards_data.voteparticipation.apply(lambda x: format(x, ".2f"))
+
+        stewards_data.votingweight = "N/A"
+        stewards_data.voteparticipation = "N/A"
+        #stewards_data.votingweight = stewards_data.votingweight.apply(lambda x: format(x, ".2f"))
+        #stewards_data.voteparticipation = stewards_data.voteparticipation.apply(lambda x: format(x, ".2f"))
         return stewards_data
-    
+
     else:
 
         stewards_data["forum_post_count"] = stewards_data.username.apply(gitcoin_posts)
@@ -106,7 +107,7 @@ def preprocess():
         stewards_data["votingweight"], stewards_data["voteparticipation"] = zip(*stewards_data.address.map(request_init_data))
 
         stewards_data['weeks_steward'] = round( ( pd.to_datetime("now")-stewards_data['steward_since'].apply(pd.to_datetime)).dt.days / 7 )
-        
+
         stewards_data = get_F_value(stewards_data)
         stewards_data = get_snapshot(stewards_data)
 
@@ -114,6 +115,9 @@ def preprocess():
         stewards_data["Health_Score"] = stewards_data['F_value'] * stewards_data['V_value'] + stewards_data['w_value']
         stewards_data["Health_Score"] = stewards_data['Health_Score'].apply(lambda x: transform_ten(x, stewards_data['Health_Score'].max(), stewards_data['Health_Score'].min())).astype(int)
         #format to 2 decimals
+
+        stewards_data.votingweight = "N/A"
+        stewards_data.voteparticipation = "N/A"
         stewards_data.votingweight = stewards_data.votingweight.apply(lambda x: format(x, ".2f"))
         stewards_data.voteparticipation = stewards_data.voteparticipation.apply(lambda x: format(x*100, ".2f"))
         stewards_data.to_csv("app/assets/csv/stewards.csv",  index=False)
