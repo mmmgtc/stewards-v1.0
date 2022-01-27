@@ -212,9 +212,7 @@ section.grid {
 .card .content .value {
   text-align: right;
 }
-.card .content .value .percentage:after {
-  content: "%";
-}
+
 .card .content .value a {
   text-decoration: none;
 }
