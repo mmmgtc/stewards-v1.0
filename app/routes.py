@@ -13,6 +13,6 @@ def index():
     #print(number_prop.number)
     #if proposal_number != number_prop.number:
     #    initial_list, number_prop = preprocess()
-
+    
 
     return render_template("index.html", stewards=initial_list)

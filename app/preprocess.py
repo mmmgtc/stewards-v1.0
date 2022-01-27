@@ -3,6 +3,7 @@ import requests
 import pandas as pd
 import json
 import time
+import numpy as np
 
 from app.helpers.helpers import get_last_proposals, get_proposals
 from app.helpers.proposals import proposals
@@ -10,44 +11,71 @@ from app.helpers.proposals import proposals
 class_prop = proposals()
 
 def request_init_data(address):
+    print('Hello!')
+    url = 'https://api.boardroom.info/v1/voters/' + str(address)
+    r = requests.get(url)
+    if list(r.json().keys())[0] == 'message':
+        url1 = 'https://api.thegraph.com/subgraphs/name/withtally/protocol-gitcoin-bravo-v2'
 
-    graph_tally = "https://api.thegraph.com/subgraphs/name/withtally/protocol-gitcoin-bravo-v2"
-    CRLF = "\\r\\n"
+        add = str(address)
 
-    payload = (
-        '{"query":"query ($voterAddress: String!) {'
-        + CRLF
-        + "  account(id: $voterAddress) {"
-        + CRLF
-        + "    id"
-        + CRLF
-        + "    ballotsCastCount"
-        + CRLF
-        + "    percentageOfTotalVotingPower"
-        + CRLF
-        + "    frequencyOfParticipationTotal"
-        + CRLF
-        + "  }"
-        + CRLF
-        + '}","variables":{"voterAddress":"'
-        + address
-        + '"}}'
-    )
+        CRLF = '\\r\\n'
+        payload='{"query":"query ($voterAddress: String!) {'+CRLF\
+        +'  histories {'+CRLF\
+        +'    totalSupply'+CRLF\
+        +'  },'+CRLF\
+        +'  account(id: $voterAddress) {'+CRLF\
+        +'    id'+CRLF\
+        +'    votes'+CRLF\
+        +'    tokenBalance'+CRLF\
+        +'    ballotsCastCount'+CRLF\
+        +'    proposalsProposedCount'+CRLF\
+        +'    percentageOfTotalVotingPower'+CRLF\
+        +'    frequencyOfParticipationTotal'+CRLF\
+        +'    delegationsCurrentlyReceivedCount'+CRLF\
+        +'    frequencyOfParticipationAsActiveVoter'+CRLF\
+        +'  }'+CRLF\
+        +'}","variables":{"voterAddress":"'+add+'"}}'
+        headers = {
+        'Content-Type': 'application/json'
+        }
 
-    response = requests.request("POST", graph_tally, data=payload)
-
-    res = json.loads(response.text)
-
-    if res["data"]["account"] == None:
-        return 0.00, 0.00
-
+        response = requests.request('POST', url1, headers=headers, data=payload)
+        res = json.loads(response.text)
+        if res['data']['account'] == None:
+            voting_power.append(' ')
+        else:
+            voting_power.append(round(float(res['data']['account']['percentageOfTotalVotingPower']),2))
+        print(voting_power)
     else:
-        voting_power = float(res["data"]["account"]["percentageOfTotalVotingPower"])*100
-        voting_participation = float(res["data"]["account"]["frequencyOfParticipationTotal"])
+        voting_power.append(round((float(r.json()['data']['protocols'][0]['lastCastPower'])/100000000)*100,2))
+        
+
+    w = requests.get("https://api.boardroom.info/v1/protocols/gitcoin")
+
+    totalVotes = w.json()['data']['totalProposals']
+
+    #url = 'https://api.boardroom.info/v1/voters/' + str(address)
+    #r = requests.get(url)
+
+    if voting_power == 'nan':
+        voting_participation=' '
+        
+    elif list(r.json().keys())[0] == 'message':
+            voting_participation=' '
+    
+    else:
+        #url = 'https://api.boardroom.info/v1/voters/' + str(address)
+        res = requests.get(url)
+        userVotesCast = res.json()['data']['protocols'][0]['totalVotesCast']
+        voting_participation = (userVotesCast/totalVotes)*100
+
+    #print(voting_power, voting_participation)
+    #     print(voting_participation)
     return voting_power, voting_participation
 
 def gitcoin_posts(username):
-    #print(username)
+    #print('Hi!')
     for i in range(15):
         #print(i)
         try:
@@ -99,11 +127,13 @@ def preprocess():
     length_proposals = len(proposals_data)
 
     if length_proposals==class_prop.number:
-
-        stewards_data.votingweight = "-"
-        stewards_data.voteparticipation = "-"
-        #stewards_data.votingweight = stewards_data.votingweight.apply(lambda x: format(x, ".2f"))
-        #stewards_data.voteparticipation = stewards_data.voteparticipation.apply(lambda x: format(x, ".2f"))
+        #stewards_data.votingweight = "-"
+        #stewards_data.voteparticipation = "-"
+        stewards_data['votingweight'] = stewards_data['votingweight'].apply(lambda x: format(x, ".2f"))
+        #stewards_data['votingweight'] = stewards_data['votingweight'].fillna('N/A')
+        stewards_data['voteparticipation'] = stewards_data['voteparticipation'].apply(lambda x: format(x, ".2f"))
+        #stewards_data['voteparticipation'].replace(np.nan,'N/A', inplace=True)
+        #print(stewards_data['voteparticipation'])
         return stewards_data
 
     else:
@@ -122,10 +152,10 @@ def preprocess():
         stewards_data["Health_Score"] = stewards_data['Health_Score'].apply(lambda x: transform_ten(x, stewards_data['Health_Score'].max(), stewards_data['Health_Score'].min())).astype(int)
         #format to 2 decimals
 
-        stewards_data.votingweight = "-"
-        stewards_data.voteparticipation = "-"
-        #stewards_data.votingweight = stewards_data.votingweight.apply(lambda x: format(x, ".2f"))
-        #stewards_data.voteparticipation = stewards_data.voteparticipation.apply(lambda x: format(x*100, ".2f"))
+        #stewards_data.votingweight = "-"
+        #stewards_data.voteparticipation = "-"
+        stewards_data.votingweight = stewards_data.votingweight.apply(lambda x: format(x, ".2f"))
+        stewards_data.voteparticipation = stewards_data.voteparticipation.apply(lambda x: format(x*100, ".2f"))
         stewards_data.to_csv("app/assets/csv/stewards.csv",  index=False)
         #print('data saved')
 
