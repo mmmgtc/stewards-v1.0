@@ -1,4 +1,4 @@
-# stewards
+# [this repo is not in use, you are looking for https://github.com/mmmgtc/stewards]
 
 Steward Report Cards
 
